@@ -32,7 +32,8 @@ typedef NS_ENUM(NSUInteger, JSBadgeViewAlignment)
     JSBadgeViewAlignmentBottomLeft,
     JSBadgeViewAlignmentBottomRight,
     JSBadgeViewAlignmentBottomCenter,
-    JSBadgeViewAlignmentCenter
+    JSBadgeViewAlignmentCenter,
+    JSBadgeViewAlignmentFree
 };
 
 @interface JSBadgeView : UIView
@@ -86,6 +87,11 @@ typedef NS_ENUM(NSUInteger, JSBadgeViewAlignment)
  * (optional) If not provided, the superview frame is used.
  */
 @property (nonatomic, assign) CGRect frameToPositionInRelationWith UI_APPEARANCE_SELECTOR;
+
+/**
+ * Absolute position of the view, used only when badge alignment is set to JSBadgeViewAlignmentFree
+ */
+@property (nonatomic, assign) CGPoint badgePosition;
 
 /**
  * Optionally init using this method to have the badge automatically added to another view.
