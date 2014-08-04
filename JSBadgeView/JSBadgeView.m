@@ -216,9 +216,7 @@ static BOOL JSBadgeViewIsUIKitFlatMode(void)
 
 - (CGSize)sizeOfTextForCurrentSettings
 {
-    JSBadgeViewSilenceDeprecatedMethodStart();
-    return [self.badgeText sizeWithFont:self.badgeTextFont];
-    JSBadgeViewSilenceDeprecatedMethodEnd();
+    return [self.badgeText sizeWithAttributes:@{NSFontAttributeName: self.badgeTextFont}];
 }
 
 #pragma mark - Setters
@@ -416,12 +414,14 @@ static BOOL JSBadgeViewIsUIKitFlatMode(void)
             textFrame.size.height = textSize.height;
             textFrame.origin.y = rectToDraw.origin.y + ceilf((rectToDraw.size.height - textFrame.size.height) / 2.0f) - 0.5;
 
-            JSBadgeViewSilenceDeprecatedMethodStart();
-            [self.badgeText drawInRect:textFrame
-                              withFont:self.badgeTextFont
-                         lineBreakMode:NSLineBreakByClipping
-                             alignment:NSTextAlignmentCenter];
-            JSBadgeViewSilenceDeprecatedMethodEnd();
+            NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+            paragraphStyle.lineBreakMode = NSLineBreakByClipping;
+            paragraphStyle.alignment = NSTextAlignmentCenter;
+            
+            NSDictionary *attribute = @{NSFontAttributeName: self.badgeTextFont,
+                                        NSForegroundColorAttributeName: self.badgeTextColor,
+                                        NSParagraphStyleAttributeName: paragraphStyle};
+            [self.badgeText drawInRect:textFrame withAttributes:attribute];
         }
         CGContextRestoreGState(ctx);
     }
