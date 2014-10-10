@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
   s.description = 'Customizable UIKit badge view like the one on applications in the iOS springboard. Very optimized for performance: drawn entirely using CoreGraphics.'
 
   s.source_files = 'JSBadgeView/*.{h,m}'
-  s.preserve_paths  = 'JSBadgeView_SampleProject'
   s.framework    = 'QuartzCore'
   s.requires_arc = true
 end
